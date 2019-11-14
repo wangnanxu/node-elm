@@ -1,0 +1,25 @@
+version: "3.0"
+
+services:
+
+  server-elm:
+
+    container_name: server-elm
+
+    build:
+
+      context: ./server
+
+    volumes:
+
+      - ./server:/usr/src/app
+
+    ports:
+
+      - "3008:3008"
+
+    environment:
+
+      - TZ=Asia/Shanghai
+
+  </pre>

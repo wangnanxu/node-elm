@@ -1,0 +1,15 @@
+- script : 'app.js'
+
+  name  : 'node-elm'
+
+  exec_mode: 'fork'
+
+  watch : true
+
+  instances: 1
+
+  log_date_format : 'YYYY-MM-DD HH:mm Z'
+
+  ignore_watch: ['node_modules']
+
+  </pre>
