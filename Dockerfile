@@ -8,4 +8,3 @@ RUN npm install
 
 CMD ["./node_modules/pm2/bin/pm2-docker", "process.yml"]
 
-</pre>
