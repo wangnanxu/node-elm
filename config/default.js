@@ -2,10 +2,10 @@
 
 module.exports = {
 	port: parseInt(process.env.PORT, 10) || 8001,
-	url: 'mongodb://localhost:27017/elm',
+	url: 'mongodb://139.9.128.88:27017/elm',
 	session: {
-		name: 'SID',
-		secret: 'SID',
+		name: 'elm',
+		secret: 'elm',
 		cookie: {
 			httpOnly: true,
 	    secure:   false,
