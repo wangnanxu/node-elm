@@ -1,12 +1,12 @@
 FROM node:8.9-alpine
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /wangnan/node/service
 
-WORKDIR /usr/src/app
+WORKDIR /wangnan/node/service
+
+COPY . /wangnan/node/service
 
 RUN npm install
 
-RUN npm install pm2 --save
-
-CMD ["./node_modules/pm2/bin/pm2-docker", "process.yml"]
+CMD npm run dev
 
