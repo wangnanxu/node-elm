@@ -1,10 +1,10 @@
 FROM node:8.9-alpine
 
-RUN mkdir -p /wangnan/node/service
+RUN mkdir -p /home/service
 
-WORKDIR /wangnan/node/service
+WORKDIR /home/service
 
-COPY . /wangnan/node/service
+COPY . /home/service
 
 RUN npm install
 
