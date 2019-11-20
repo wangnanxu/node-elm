@@ -8,11 +8,12 @@ import dtime from 'time-formater'
 
 class Admin extends AddressComponent {
 	constructor(){
-		super()
-		this.login = this.login.bind(this)
-		this.register = this.register.bind(this)
-		this.encryption = this.encryption.bind(this)
-		this.updateAvatar = this.updateAvatar.bind(this)
+		super();
+		this.login = this.login.bind(this);
+		this.register = this.register.bind(this);
+		this.singout = this.singout.bind(this);
+		this.encryption = this.encryption.bind(this);
+		this.updateAvatar = this.updateAvatar.bind(this);
 	}
 	async login(req, res, next){
 		const form = new formidable.IncomingForm();
@@ -45,12 +46,12 @@ class Admin extends AddressComponent {
 			try{
 				const admin = await AdminModel.findOne({user_name})
 				if (!admin) {
-					const adminTip = status == 1 ? '管理员' : '超级管理员'
+					/*const adminTip = status == 1 ? '管理员' : '超级管理员'
 					const admin_id = await this.getId('admin_id');
 					const cityInfo = await this.guessPosition(req);
 					const newAdmin = {
-						user_name, 
-						password: newpassword, 
+						user_name,
+						password: newpassword,
 						id: admin_id,
 						create_time: dtime().format('YYYY-MM-DD HH:mm'),
 						admin: adminTip,
@@ -62,6 +63,11 @@ class Admin extends AddressComponent {
 					res.send({
 						status: 1,
 						success: '注册管理员成功',
+					})*/
+					res.send({
+						status: 0,
+						type: 'ERROR_PASSWORD',
+						message: '用户账户密码错误',
 					})
 				}else if(newpassword.toString() != admin.password.toString()){
 					console.log('管理员登录密码错误');
@@ -127,13 +133,16 @@ class Admin extends AddressComponent {
 					const adminTip = status == 1 ? '管理员' : '超级管理员'
 					const admin_id = await this.getId('admin_id');
 					const newpassword = this.encryption(password);
+					const cityInfo = await this.guessPosition(req);
+					console.log(cityInfo.city);
 					const newAdmin = {
-						user_name, 
-						password: newpassword, 
+						user_name,
+						password: newpassword,
 						id: admin_id,
 						create_time: dtime().format('YYYY-MM-DD'),
 						admin: adminTip,
 						status,
+                        city: cityInfo.city
 					}
 					await AdminModel.create(newAdmin)
 					req.session.admin_id = admin_id;
@@ -217,7 +226,7 @@ class Admin extends AddressComponent {
 				type: 'ERROR_SESSION',
 				message: '获取管理员信息失败'
 			})
-			return 
+			return
 		}
 		try{
 			const info = await AdminModel.findOne({id: admin_id}, '-_id -__v -password');
@@ -247,7 +256,7 @@ class Admin extends AddressComponent {
 				type: 'ERROR_ADMINID',
 				message: 'admin_id参数错误',
 			})
-			return 
+			return
 		}
 
 		try{
